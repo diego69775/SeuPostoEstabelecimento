@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:context=".fragment.PerfilFragment">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:foregroundGravity="center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/inputNumero"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="24dp"
+                android:layout_marginRight="24dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/inputBairro"
+                app:layout_constraintTop_toBottomOf="@+id/inputRua">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editNumero"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:enabled="false"
+                    android:hint="Número" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/inputRua"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginLeft="24dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="24dp"
+                android:layout_marginRight="24dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/inputCep">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editRua"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:enabled="false"
+                    android:hint="Rua" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/inputCep"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginLeft="24dp"
+                android:layout_marginTop="8dp"
+                app:layout_constraintEnd_toStartOf="@+id/guideline3"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/inputTelefone">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editCep"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:enabled="false"
+                    android:hint="CEP" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <ImageButton
+                android:id="@+id/imageButtonGpsEstabelecimento"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="24dp"
+                android:layout_marginRight="24dp"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/background_botao"
+                android:onClick="btnDefinirEndereco"
+                android:src="@drawable/ic_gps_fixed_black_24dp2"
+                app:layout_constraintBottom_toTopOf="@+id/inputRua"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/guideline3"
+                app:layout_constraintTop_toBottomOf="@+id/inputTelefone"
+                android:contentDescription="Logo App" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/inputTelefone"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginLeft="24dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="24dp"
+                android:layout_marginRight="24dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/inputCnpj">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTelefone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Telefone" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/inputCnpj"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginLeft="24dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="24dp"
+                android:layout_marginRight="24dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/inputFantasia">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editCnpj"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Cnpj" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/inputFantasia"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginLeft="24dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="24dp"
+                android:layout_marginRight="24dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/inputRazao">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editFantasia"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Nome Fantasia" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <Button
+                android:id="@+id/btnAlterar"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="64dp"
+                android:layout_marginLeft="64dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="64dp"
+                android:layout_marginRight="64dp"
+                android:background="@drawable/background_botao"
+                android:text="Alterar"
+                android:textColor="@android:color/black"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/inputCidade"
+                app:layout_constraintVertical_bias="0.112" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/inputRazao"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginLeft="24dp"
+                android:layout_marginEnd="24dp"
+                android:layout_marginRight="24dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editRazao"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Razão Social" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.6" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/inputBairro"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginLeft="24dp"
+                android:layout_marginTop="8dp"
+                app:layout_constraintEnd_toStartOf="@+id/guideline3"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/inputRua">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editBairro"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:enabled="false"
+                    android:hint="Bairro" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/inputCidade"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginLeft="24dp"
+                android:layout_marginTop="8dp"
+                app:layout_constraintEnd_toStartOf="@+id/guideline3"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/inputBairro">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editCidade"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:enabled="false"
+                    android:hint="Cidade" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/inputEstado"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="24dp"
+                android:layout_marginRight="24dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="@+id/guideline3"
+                app:layout_constraintTop_toBottomOf="@+id/inputNumero">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editEstado"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:enabled="false"
+                    android:hint="Estado" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
