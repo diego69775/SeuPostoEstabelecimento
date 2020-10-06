@@ -26,6 +26,70 @@ public class Estabelecimento implements Serializable {
     public Estabelecimento() {
     }
 
+    public Estabelecimento(String razaoSocial, String nomeFantasia, String cnpj, String telefone, String cep, String rua, String bairro, String numero, String cidade, String estado, String latitute, String longitude) {
+
+        if(razaoSocial.equals("")){
+            throw new IllegalArgumentException("Estabelecimento não pode ter Razão Social vazio!");
+        }
+
+        if(nomeFantasia.equals("")){
+            throw new IllegalArgumentException("Estabelecimento não pode ter Nome Fantasia vazio!");
+        }
+
+        if(cnpj.equals("")){
+            throw new IllegalArgumentException("Estabelecimento não pode ter CNPJ vazio!");
+        }
+
+        if(telefone.equals("")){
+            throw new IllegalArgumentException("Estabelecimento não pode ter telefone vazio!");
+        }
+
+        if(cep.equals("")){
+            throw new IllegalArgumentException("Estabelecimento não pode ter CEP vazio!");
+        }
+
+        if(rua.equals("")){
+            throw new IllegalArgumentException("Estabelecimento não pode ter Rua vazio!");
+        }
+
+        if(bairro.equals("")){
+            throw new IllegalArgumentException("Estabelecimento não pode ter Bairro vazio!");
+        }
+
+        if(numero.equals("")){
+            throw new IllegalArgumentException("Estabelecimento não pode ter Número vazio!");
+        }
+
+        if(cidade.equals("")){
+            throw new IllegalArgumentException("Estabelecimento não pode ter Cidade vazio!");
+        }
+
+        if(estado.equals("")){
+            throw new IllegalArgumentException("Estabelecimento não pode ter Estado vazio!");
+        }
+
+        if(latitute.equals("")){
+            throw new IllegalArgumentException("Estabelecimento não pode ter Latitude vazio!");
+        }
+
+        if(longitude.equals("")){
+            throw new IllegalArgumentException("Estabelecimento não pode ter Longitude vazio!");
+        }
+
+        this.razaoSocial = razaoSocial;
+        this.nomeFantasia = nomeFantasia;
+        this.cnpj = cnpj;
+        this.telefone = telefone;
+        this.cep = cep;
+        this.rua = rua;
+        this.bairro = bairro;
+        this.numero = numero;
+        this.cidade = cidade;
+        this.estado = estado;
+        this.latitute = latitute;
+        this.longitude = longitude;
+    }
+
     public void criar(){
         DatabaseReference firebaseRef = ConfiguracaoFirebase.getFirebase();
         DatabaseReference estabelecimentoRef = firebaseRef.child("estabelecimentos").child(getUsuario().getId());
