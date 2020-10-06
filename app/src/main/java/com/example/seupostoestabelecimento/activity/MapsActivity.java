@@ -9,10 +9,16 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.seupostoestabelecimento.R;
 import com.example.seupostoestabelecimento.helper.Permissoes;
@@ -23,6 +29,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +42,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private LocationListener locationListener;
     private LatLng localUsuario;
     private LatLng enderecoEstabelecimento;
-
+    int aux = 0;
     final private List<Estabelecimento> listaEstabelecimento = new ArrayList<>();
 
     @Override
@@ -104,9 +111,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         enderecoEstabelecimento = new LatLng(lat, lon);
                         StringBuilder texto = new StringBuilder();
                         for (int j = 0; j < listaEstabelecimento.get(i).getProduto().size(); j++) {
-                            texto.append(listaEstabelecimento.get(i).getProduto().get(j).getDescricao()).append(" ").append(listaEstabelecimento.get(i).getProduto().get(j).getValor()).append("\n");
+                            if(j==listaEstabelecimento.get(i).getProduto().size()-1){
+                                texto.append(listaEstabelecimento.get(i).getProduto().get(j).getDescricao()).append(" ").append(listaEstabelecimento.get(i).getProduto().get(j).getValor());
+                            }else{
+                                texto.append(listaEstabelecimento.get(i).getProduto().get(j).getDescricao()).append(" ").append(listaEstabelecimento.get(i).getProduto().get(j).getValor()).append("\n");
+                            }
+
                         }
                         mMap.addMarker(new MarkerOptions().position(enderecoEstabelecimento).title(listaEstabelecimento.get(i).getNomeFantasia()).snippet(texto.toString()).icon(BitmapDescriptorFactory.fromResource(R.drawable.pin)));
+                        mMap.setInfoWindowAdapter(new CustomInfoWindowAdapter());
                     }
                 }
 
@@ -158,6 +171,68 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         });
         AlertDialog dialog = builder.create();
         dialog.show();
+    }
+
+    class CustomInfoWindowAdapter implements GoogleMap.InfoWindowAdapter{
+
+        private final View mWindow;
+        private final View mContents;
+
+        CustomInfoWindowAdapter(){
+            mWindow = getLayoutInflater().inflate(R.layout.custom_info_window,null);
+            mContents = getLayoutInflater().inflate(R.layout.custom_info_contents,null);
+        }
+
+        @Override
+        public View getInfoWindow(Marker marker) {
+            if(aux == 0){
+                return null;
+            }
+            render(marker, mWindow);
+            return mWindow;
+        }
+
+        @Override
+        public View getInfoContents(Marker marker) {
+            if(aux == 1) {
+                return null;
+            }
+            render(marker,mContents);
+            return mContents;
+        }
+
+        private void render(Marker marker, View view){
+            int badge;
+
+            //if(marker.equals(mPosto)){
+                //badge = R.drawable.badge_qld;
+            //}else{
+                badge=0;
+            //}
+
+            //((ImageView) view.findViewById(R.id.badge)).setImageResource(badge);
+
+            String title = marker.getTitle();
+            TextView titleUi = ((TextView) view.findViewById(R.id.title));
+            if(title != null){
+                SpannableString titleText = new SpannableString(title);
+                titleText.setSpan(new ForegroundColorSpan(Color.RED),0,titleText.length(),0);
+                titleUi.setText(titleText);
+            }else{
+                titleUi.setText("");
+            }
+
+            String snippet = marker.getSnippet();
+            TextView snippetUi = ((TextView) view.findViewById(R.id.snippet));
+            if(snippet != null && snippet.length() > 12) {
+                SpannableString snippetText  = new SpannableString(snippet);
+                //snippetText.setSpan(new ForegroundColorSpan(Color.MAGENTA),0,10,0);
+                snippetText.setSpan(new ForegroundColorSpan(Color.BLACK),0, snippet.length(),0);
+                snippetUi.setText(snippetText);
+            }else{
+                snippetUi.setText("");
+            }
+        }
     }
 
 }
