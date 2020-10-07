@@ -13,6 +13,20 @@ public class Avaliacao implements Serializable {
     public Avaliacao() {
     }
 
+    public Avaliacao(String descricao, double nota) {
+
+        if(descricao.equals("")){
+            throw new IllegalArgumentException("Avaliação não pode ter Descrição vazio!");
+        }
+
+        if(nota <= 0){
+            throw new IllegalArgumentException("Avaliação não pode ter Nota menor ou igual a zero!");
+        }
+
+        this.descricao = descricao;
+        this.nota = nota;
+    }
+
     public String getDescricao() {
         return descricao;
     }

@@ -12,6 +12,20 @@ public class Produto implements Serializable {
     public Produto() {
     }
 
+    public Produto(String descricao, double valor) {
+
+        if(descricao.equals("")){
+            throw new IllegalArgumentException("Produto não pode ter Descrição vazio!");
+        }
+
+        if(valor < 0){
+            throw new IllegalArgumentException("Produto não pode ter Valor menor que zero!");
+        }
+
+        this.descricao = descricao;
+        this.valor = valor;
+    }
+
     public int getId() {
         return id;
     }
