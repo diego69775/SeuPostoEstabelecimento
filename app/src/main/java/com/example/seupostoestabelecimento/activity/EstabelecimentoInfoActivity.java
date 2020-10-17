@@ -18,8 +18,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class EstabelecimentoInfoActivity extends AppCompatActivity {
 
@@ -88,14 +90,15 @@ public class EstabelecimentoInfoActivity extends AppCompatActivity {
             txtNome.setText(estabelecimento.getNomeFantasia());
             String textoEndereco =estabelecimento.getRua() + " " + estabelecimento.getNumero() + " " + estabelecimento.getBairro();
             txtEndereco.setText(textoEndereco);
-            txtTelefone.setText(estabelecimento.getTelefone());
+            txtTelefone.setText("Telefone: "+estabelecimento.getTelefone());
             boolean possuiPromocao = false;
             boolean possuiAvaliacao = false;
 
             List<String> itensProduto = new ArrayList<>();
             if (estabelecimento.getProduto() != null) {
+                Locale ptBr = new Locale("pt", "BR");
                 for (int i = 0; i < estabelecimento.getProduto().size(); i++) {
-                    itensProduto.add(estabelecimento.getProduto().get(i).getDescricao() + " R$" + estabelecimento.getProduto().get(i).getValor());
+                    itensProduto.add(estabelecimento.getProduto().get(i).getDescricao() + " " + NumberFormat.getCurrencyInstance(ptBr).format(estabelecimento.getProduto().get(i).getValor()));
                 }
 
                 //Configurar Adapter para lista Produto
@@ -112,8 +115,9 @@ public class EstabelecimentoInfoActivity extends AppCompatActivity {
             if (estabelecimento.getProduto() != null) {
                 for (int i = 0; i < estabelecimento.getProduto().size(); i++) {
                     if (estabelecimento.getProduto().get(i).getPromocao() != null) {
+                        Locale ptBr = new Locale("pt", "BR");
                         possuiPromocao = true;
-                        itensPromocao.add(estabelecimento.getProduto().get(i).getPromocao().getNomeProduto() + " R$" + estabelecimento.getProduto().get(i).getPromocao().getValorPromocao());
+                        itensPromocao.add(estabelecimento.getProduto().get(i).getPromocao().getNomeProduto() + " " + NumberFormat.getCurrencyInstance(ptBr).format(estabelecimento.getProduto().get(i).getPromocao().getValorPromocao()));
                     }
                 }
                 if (possuiPromocao) {

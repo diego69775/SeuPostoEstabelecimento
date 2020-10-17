@@ -31,8 +31,11 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
@@ -103,6 +106,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 mMap.addMarker(new MarkerOptions().position(localUsuario).title("Meu local").icon(BitmapDescriptorFactory.fromResource(R.drawable.dom2)));
                 mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(localUsuario, 16));
 
+                Locale ptBr = new Locale("pt", "BR");
 
                 if (listaEstabelecimento != null) {
                     for (int i = 0; i < listaEstabelecimento.size(); i++) {
@@ -112,9 +116,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         StringBuilder texto = new StringBuilder();
                         for (int j = 0; j < listaEstabelecimento.get(i).getProduto().size(); j++) {
                             if(j==listaEstabelecimento.get(i).getProduto().size()-1){
-                                texto.append(listaEstabelecimento.get(i).getProduto().get(j).getDescricao()).append(" ").append(listaEstabelecimento.get(i).getProduto().get(j).getValor());
+                                texto.append(listaEstabelecimento.get(i).getProduto().get(j).getDescricao()).append(" ").append(NumberFormat.getCurrencyInstance(ptBr).format(listaEstabelecimento.get(i).getProduto().get(j).getValor()));
                             }else{
-                                texto.append(listaEstabelecimento.get(i).getProduto().get(j).getDescricao()).append(" ").append(listaEstabelecimento.get(i).getProduto().get(j).getValor()).append("\n");
+                                texto.append(listaEstabelecimento.get(i).getProduto().get(j).getDescricao()).append(" ").append(NumberFormat.getCurrencyInstance(ptBr).format(listaEstabelecimento.get(i).getProduto().get(j).getValor())).append("\n");
                             }
 
                         }

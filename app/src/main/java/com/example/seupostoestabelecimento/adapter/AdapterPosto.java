@@ -11,7 +11,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.seupostoestabelecimento.R;
 import com.example.seupostoestabelecimento.model.Estabelecimento;
 
+import java.text.NumberFormat;
 import java.util.List;
+import java.util.Locale;
 
 public class AdapterPosto extends RecyclerView.Adapter<AdapterPosto.MyViewHolder>{
 
@@ -50,35 +52,43 @@ public class AdapterPosto extends RecyclerView.Adapter<AdapterPosto.MyViewHolder
             holder.textEndereco.setText(textoEndereco);
             String textoAvaliacao = "Nota: "+nota;
             holder.textAvaliacao.setText(textoAvaliacao);
+            Locale ptBr = new Locale("pt", "BR");
+
             for (int i=0; i<estabelecimento.getProduto().size();i++){
                 if(i==0){
                     holder.textProd1.setVisibility(View.VISIBLE);
-                    String textoProd1 = estabelecimento.getProduto().get(i).getDescricao()+" R$"+estabelecimento.getProduto().get(i).getValor();
+                    String textoProd1 = estabelecimento.getProduto().get(i).getDescricao()+" ";
+                    textoProd1 = textoProd1 + NumberFormat.getCurrencyInstance(ptBr).format(estabelecimento.getProduto().get(i).getValor());
                     holder.textProd1.setText(textoProd1);
                 }
                 if(i==1){
                     holder.textProd2.setVisibility(View.VISIBLE);
-                    String textoProd2 = estabelecimento.getProduto().get(i).getDescricao()+" R$"+estabelecimento.getProduto().get(i).getValor();
+                    String textoProd2 = estabelecimento.getProduto().get(i).getDescricao()+" ";
+                    textoProd2 = textoProd2 + NumberFormat.getCurrencyInstance(ptBr).format(estabelecimento.getProduto().get(i).getValor());
                     holder.textProd2.setText(textoProd2);
                 }
                 if(i==2){
                     holder.textProd3.setVisibility(View.VISIBLE);
-                    String textoProd3 = estabelecimento.getProduto().get(i).getDescricao()+" R$"+estabelecimento.getProduto().get(i).getValor();
+                    String textoProd3 = estabelecimento.getProduto().get(i).getDescricao()+" ";
+                    textoProd3 = textoProd3 + NumberFormat.getCurrencyInstance(ptBr).format(estabelecimento.getProduto().get(i).getValor());
                     holder.textProd3.setText(textoProd3);
                 }
                 if(i==3){
                     holder.textProd4.setVisibility(View.VISIBLE);
-                    String textoProd4 = estabelecimento.getProduto().get(i).getDescricao()+" R$"+estabelecimento.getProduto().get(i).getValor();
+                    String textoProd4 = estabelecimento.getProduto().get(i).getDescricao()+" ";
+                    textoProd4 = textoProd4 + NumberFormat.getCurrencyInstance(ptBr).format(estabelecimento.getProduto().get(i).getValor());
                     holder.textProd4.setText(textoProd4);
                 }
                 if(i==4){
                     holder.textProd5.setVisibility(View.VISIBLE);
-                    String textoProd5 = estabelecimento.getProduto().get(i).getDescricao()+" R$"+estabelecimento.getProduto().get(i).getValor();
+                    String textoProd5 = estabelecimento.getProduto().get(i).getDescricao()+" ";
+                    textoProd5 = textoProd5 + NumberFormat.getCurrencyInstance(ptBr).format(estabelecimento.getProduto().get(i).getValor());
                     holder.textProd5.setText(textoProd5);
                 }
                 if(i==5){
                     holder.textProd6.setVisibility(View.VISIBLE);
-                    String textoProd6 = estabelecimento.getProduto().get(i).getDescricao()+" R$"+estabelecimento.getProduto().get(i).getValor();
+                    String textoProd6 = estabelecimento.getProduto().get(i).getDescricao()+" ";
+                    textoProd6 = textoProd6 + NumberFormat.getCurrencyInstance(ptBr).format(estabelecimento.getProduto().get(i).getValor());
                     holder.textProd6.setText(textoProd6);
                 }
             }

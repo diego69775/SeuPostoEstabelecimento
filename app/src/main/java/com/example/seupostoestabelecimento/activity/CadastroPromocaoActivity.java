@@ -2,7 +2,9 @@ package com.example.seupostoestabelecimento.activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -23,8 +25,13 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class CadastroPromocaoActivity extends AppCompatActivity {
 
@@ -36,6 +43,7 @@ public class CadastroPromocaoActivity extends AppCompatActivity {
     private Produto produto;
     private String produtoSelecionado;
     private Promocao promocaoAtual;
+    private double valorNormalComparar = 0;
 
 
     @Override
@@ -63,11 +71,12 @@ public class CadastroPromocaoActivity extends AppCompatActivity {
 
         //Configurar promoção na caixa de texto
         if (promocaoAtual != null) {
+            Locale ptBr = new Locale("pt", "BR");
             listaProdutoString.add(promocaoAtual.getNomeProduto());
             campoValorPromocao.setText(String.valueOf(promocaoAtual.getValorPromocao()));
             campoDataInicial.setText(promocaoAtual.getDataInicial());
             campoDataFinal.setText(promocaoAtual.getDataFinal());
-            txtValorNormal.setText(String.valueOf(promocaoAtual.getValorNormal()));
+            txtValorNormal.setText(NumberFormat.getCurrencyInstance(ptBr).format(promocaoAtual.getValorNormal()));
         } else {
             if (listaProdutos != null) {
                 for (int i = 0; i < listaProdutos.size(); i++) {
@@ -88,7 +97,9 @@ public class CadastroPromocaoActivity extends AppCompatActivity {
 
                 for (int i = 0; i < listaProdutos.size(); i++) {
                     if (listaProdutos.get(i).getDescricao().equals(produtoSelecionado)) {
-                        String textoValorNormal = "Valor Atual: " + listaProdutos.get(i).getValor();
+                        Locale ptBr = new Locale("pt", "BR");
+                        String textoValorNormal = "Valor Atual: " + NumberFormat.getCurrencyInstance(ptBr).format(listaProdutos.get(i).getValor());
+                        valorNormalComparar = listaProdutos.get(i).getValor();
                         txtValorNormal.setText(textoValorNormal);
                     }
                 }
@@ -115,75 +126,79 @@ public class CadastroPromocaoActivity extends AppCompatActivity {
 
                 if (!produtoSelecionado.equals("")) {
                     if (!textoValorPromocao.isEmpty()) {
-                        if (!textoDataInicial.isEmpty()) {
-                            if (!textoDataFinal.isEmpty()) {
+                        if (valorPromocao < valorNormalComparar) {
+                            if (!textoDataInicial.isEmpty()) {
+                                if (!textoDataFinal.isEmpty()) {
 
 
-                                if (promocaoAtual != null) {
-                                    //Alterar
-                                    List<Produto> listaProduto = new ArrayList<>();
-                                    if (estabelecimento.getProduto() != null) {
-                                        listaProduto = estabelecimento.getProduto();
-                                    }
+                                    if (promocaoAtual != null) {
+                                        //Alterar
+                                        List<Produto> listaProduto = new ArrayList<>();
+                                        if (estabelecimento.getProduto() != null) {
+                                            listaProduto = estabelecimento.getProduto();
+                                        }
 
-                                    for (int i = 0; i < listaProduto.size(); i++) {
-                                        if (listaProduto.get(i).getDescricao().equals(produtoSelecionado)) {
+                                        for (int i = 0; i < listaProduto.size(); i++) {
+                                            if (listaProduto.get(i).getDescricao().equals(produtoSelecionado)) {
 
-                                            Promocao promocao = new Promocao();
-                                            promocao.setId(0);
-                                            promocao.setDataInicial(textoDataInicial);
-                                            promocao.setDataFinal(textoDataFinal);
-                                            promocao.setValorPromocao(valorPromocao);
-                                            promocao.setNomeProduto(listaProduto.get(i).getDescricao());
-                                            promocao.setValorNormal(listaProduto.get(i).getValor());
+                                                Promocao promocao = new Promocao();
+                                                promocao.setId(0);
+                                                promocao.setDataInicial(textoDataInicial);
+                                                promocao.setDataFinal(textoDataFinal);
+                                                promocao.setValorPromocao(valorPromocao);
+                                                promocao.setNomeProduto(listaProduto.get(i).getDescricao());
+                                                promocao.setValorNormal(listaProduto.get(i).getValor());
 
-                                            produto = new Produto();
-                                            produto = listaProduto.get(i);
-                                            produto.setPromocao(promocao);
+                                                produto = new Produto();
+                                                produto = listaProduto.get(i);
+                                                produto.setPromocao(promocao);
 
-                                            estabelecimento.setProduto(listaProduto);
-                                            estabelecimento.atualizar();
+                                                estabelecimento.setProduto(listaProduto);
+                                                estabelecimento.atualizar();
 
-                                            Toast.makeText(CadastroPromocaoActivity.this, "Promoção " + produto.getDescricao() + " alterada", Toast.LENGTH_SHORT).show();
-                                            finish();
+                                                Toast.makeText(CadastroPromocaoActivity.this, "Promoção " + produto.getDescricao() + " alterada", Toast.LENGTH_SHORT).show();
+                                                finish();
+                                            }
+                                        }
+
+                                    } else {
+                                        //Novo
+                                        List<Produto> listaProduto = new ArrayList<>();
+                                        if (estabelecimento.getProduto() != null) {
+                                            listaProduto = estabelecimento.getProduto();
+                                        }
+
+                                        for (int i = 0; i < listaProduto.size(); i++) {
+                                            if (listaProduto.get(i).getDescricao().equals(produtoSelecionado)) {
+
+                                                Promocao promocao = new Promocao();
+                                                promocao.setId(0);
+                                                promocao.setDataInicial(textoDataInicial);
+                                                promocao.setDataFinal(textoDataFinal);
+                                                promocao.setValorPromocao(valorPromocao);
+                                                promocao.setNomeProduto(listaProduto.get(i).getDescricao());
+                                                promocao.setValorNormal(listaProduto.get(i).getValor());
+
+                                                produto = new Produto();
+                                                produto = listaProduto.get(i);
+                                                produto.setPromocao(promocao);
+
+                                                estabelecimento.setProduto(listaProduto);
+                                                estabelecimento.atualizar();
+
+                                                Toast.makeText(CadastroPromocaoActivity.this, "Promoção " + produto.getDescricao() + " cadastrada", Toast.LENGTH_SHORT).show();
+                                                finish();
+                                            }
                                         }
                                     }
-
                                 } else {
-                                    //Novo
-                                    List<Produto> listaProduto = new ArrayList<>();
-                                    if (estabelecimento.getProduto() != null) {
-                                        listaProduto = estabelecimento.getProduto();
-                                    }
-
-                                    for (int i = 0; i < listaProduto.size(); i++) {
-                                        if (listaProduto.get(i).getDescricao().equals(produtoSelecionado)) {
-
-                                            Promocao promocao = new Promocao();
-                                            promocao.setId(0);
-                                            promocao.setDataInicial(textoDataInicial);
-                                            promocao.setDataFinal(textoDataFinal);
-                                            promocao.setValorPromocao(valorPromocao);
-                                            promocao.setNomeProduto(listaProduto.get(i).getDescricao());
-                                            promocao.setValorNormal(listaProduto.get(i).getValor());
-
-                                            produto = new Produto();
-                                            produto = listaProduto.get(i);
-                                            produto.setPromocao(promocao);
-
-                                            estabelecimento.setProduto(listaProduto);
-                                            estabelecimento.atualizar();
-
-                                            Toast.makeText(CadastroPromocaoActivity.this, "Promoção " + produto.getDescricao() + " cadastrada", Toast.LENGTH_SHORT).show();
-                                            finish();
-                                        }
-                                    }
+                                    Toast.makeText(CadastroPromocaoActivity.this, "Preencha a data final", Toast.LENGTH_SHORT).show();
                                 }
                             } else {
-                                Toast.makeText(CadastroPromocaoActivity.this, "Preencha a data final", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(CadastroPromocaoActivity.this, "Preencha a data inicial", Toast.LENGTH_SHORT).show();
                             }
                         } else {
-                            Toast.makeText(CadastroPromocaoActivity.this, "Preencha a data inicial", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(CadastroPromocaoActivity.this, "Valor da promoção não pode ser maior ou igual valor do produto", Toast.LENGTH_SHORT).show();
                         }
                     } else {
                         Toast.makeText(CadastroPromocaoActivity.this, "Preencha o valor da promoção", Toast.LENGTH_SHORT).show();
@@ -205,7 +220,7 @@ public class CadastroPromocaoActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 estabelecimento = dataSnapshot.getValue(Estabelecimento.class);
-                if(estabelecimento != null) {
+                if (estabelecimento != null) {
                     listaProdutos = estabelecimento.getProduto();
                 }
             }

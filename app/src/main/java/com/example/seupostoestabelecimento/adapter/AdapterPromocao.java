@@ -12,7 +12,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.seupostoestabelecimento.R;
 import com.example.seupostoestabelecimento.model.Promocao;
 
+import java.text.NumberFormat;
 import java.util.List;
+import java.util.Locale;
 
 public class AdapterPromocao extends RecyclerView.Adapter<AdapterPromocao.MyViewHolder> {
 
@@ -34,11 +36,12 @@ public class AdapterPromocao extends RecyclerView.Adapter<AdapterPromocao.MyView
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
 
+        Locale ptBr = new Locale("pt", "BR");
         Promocao promocao = listaPromocao.get(position);
         holder.nomePromocao.setText(promocao.getNomeProduto());
-        String textoValor = "R$ "+promocao.getValorNormal();
+        String textoValor = NumberFormat.getCurrencyInstance(ptBr).format(promocao.getValorNormal());
         holder.valor.setText(textoValor);
-        String textoPromocao = "R$ "+promocao.getValorPromocao();
+        String textoPromocao = NumberFormat.getCurrencyInstance(ptBr).format(promocao.getValorPromocao());
         holder.valorPromocao.setText(textoPromocao);
         String textoPromocaoData = promocao.getDataInicial()+" ~ "+promocao.getDataFinal();
         holder.dataPromocao.setText(textoPromocaoData);

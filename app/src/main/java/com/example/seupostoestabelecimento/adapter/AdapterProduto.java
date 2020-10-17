@@ -11,7 +11,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.seupostoestabelecimento.R;
 import com.example.seupostoestabelecimento.model.Produto;
 
+import java.text.NumberFormat;
 import java.util.List;
+import java.util.Locale;
 
 public class AdapterProduto extends RecyclerView.Adapter<AdapterProduto.MyViewHolder> {
 
@@ -33,9 +35,11 @@ public class AdapterProduto extends RecyclerView.Adapter<AdapterProduto.MyViewHo
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
 
+        Locale ptBr = new Locale("pt", "BR");
+
         Produto produto = listaProdutos.get(position);
         holder.descricao.setText(produto.getDescricao());
-        String textoValor = "R$ "+produto.getValor();
+        String textoValor = NumberFormat.getCurrencyInstance(ptBr).format(produto.getValor());
         holder.valor.setText(textoValor);
     }
 
