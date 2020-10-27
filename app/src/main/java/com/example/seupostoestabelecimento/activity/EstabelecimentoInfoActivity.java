@@ -90,7 +90,8 @@ public class EstabelecimentoInfoActivity extends AppCompatActivity {
             txtNome.setText(estabelecimento.getNomeFantasia());
             String textoEndereco =estabelecimento.getRua() + " " + estabelecimento.getNumero() + " " + estabelecimento.getBairro();
             txtEndereco.setText(textoEndereco);
-            txtTelefone.setText("Telefone: "+estabelecimento.getTelefone());
+            String tel = "Telefone: "+estabelecimento.getTelefone();
+            txtTelefone.setText(tel);
             boolean possuiPromocao = false;
             boolean possuiAvaliacao = false;
 

@@ -17,7 +17,6 @@ import android.os.Bundle;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.seupostoestabelecimento.R;
@@ -45,7 +44,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private LocationListener locationListener;
     private LatLng localUsuario;
     private LatLng enderecoEstabelecimento;
-    int aux = 0;
+    final private int aux = 0;
     final private List<Estabelecimento> listaEstabelecimento = new ArrayList<>();
 
     @Override
@@ -211,13 +210,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             //if(marker.equals(mPosto)){
                 //badge = R.drawable.badge_qld;
             //}else{
-                badge=0;
+                //badge=0;
             //}
 
             //((ImageView) view.findViewById(R.id.badge)).setImageResource(badge);
 
             String title = marker.getTitle();
-            TextView titleUi = ((TextView) view.findViewById(R.id.title));
+            TextView titleUi = (view.findViewById(R.id.title));
             if(title != null){
                 SpannableString titleText = new SpannableString(title);
                 titleText.setSpan(new ForegroundColorSpan(Color.RED),0,titleText.length(),0);
@@ -227,7 +226,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
 
             String snippet = marker.getSnippet();
-            TextView snippetUi = ((TextView) view.findViewById(R.id.snippet));
+            TextView snippetUi = (view.findViewById(R.id.snippet));
             if(snippet != null && snippet.length() > 12) {
                 SpannableString snippetText  = new SpannableString(snippet);
                 //snippetText.setSpan(new ForegroundColorSpan(Color.MAGENTA),0,10,0);
